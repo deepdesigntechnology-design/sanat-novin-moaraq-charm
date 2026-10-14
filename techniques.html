@@ -19,6 +19,12 @@
   <meta name="twitter:description" content="تکنیک‌های پایه، قوام‌آوری و رزین زیرکار در صنعت نوین معرق چرم.">
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .schematic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .schematic-item { background: #fafafa; border: 1px solid #e5e5e5; border-radius: 8px; padding: 1rem; text-align: center; }
+    .schematic-item img { max-width: 100%; height: auto; border-radius: 4px; margin-bottom: 0.75rem; }
+    .schematic-item p { font-size: 0.9rem; color: #444; margin: 0; }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -102,18 +108,41 @@
       </div>
 
       <div class="content-block">
-        <h2>شماتیک‌های آموزشی (آماده برای کتاب و سایت)</h2>
-        <p>مجموعه‌ای از تصاویر شماتیک ساده و آموزشی برای مفاهیم کلیدی پروژه تهیه شده است:</p>
-        <ul>
-          <li>موتیف تک‌قطعه (زیبایی شکلی و گل)</li>
-          <li>تولید موتیف با دستگاه پرس صنعتی / سی‌ان‌سی لیزر</li>
-          <li>موتیف با نقش برجسته حکاکی‌شده</li>
-          <li>چیدمان شمسه‌ای و تکرارپذیری موتیف‌ها</li>
-          <li>سه خط پایه اسلیمی (ربع‌دایره، نیمه‌گرد، اس‌شکل)</li>
-          <li>نقاط طلایی کادر و Super Gold Point</li>
-          <li>ترکیب‌بندی کلاسیک ایرانی (ترنج + لچک + گوشه + حاشیه)</li>
-        </ul>
-        <p>این تصاویر برای استفاده در کتاب درسی و صفحات آموزشی سایت آرشیو شده‌اند. فایل‌های تصویری را می‌توان در پوشه assets قرار داد و به صفحات متصل نمود.</p>
+        <h2>شماتیک‌های آموزشی</h2>
+        <p>تصاویر شماتیک ساده و آموزشی برای مفاهیم کلیدی پروژه:</p>
+
+        <div class="schematic-grid">
+          <div class="schematic-item">
+            <img src="assets/schematics/motif-single.jpg" alt="موتیف تک‌قطعه زیبا" loading="lazy">
+            <p>موتیف تک‌قطعه (زیبایی شکلی و گل)</p>
+          </div>
+          <div class="schematic-item">
+            <img src="assets/schematics/motif-production.jpg" alt="تولید موتیف با دستگاه" loading="lazy">
+            <p>تولید با پرس صنعتی / سی‌ان‌سی لیزر</p>
+          </div>
+          <div class="schematic-item">
+            <img src="assets/schematics/motif-relief.jpg" alt="موتیف با نقش برجسته" loading="lazy">
+            <p>موتیف با نقش برجسته حکاکی‌شده</p>
+          </div>
+          <div class="schematic-item">
+            <img src="assets/schematics/motif-shamseh.jpg" alt="چیدمان شمسه‌ای موتیف‌ها" loading="lazy">
+            <p>چیدمان شمسه‌ای و تکرارپذیری</p>
+          </div>
+          <div class="schematic-item">
+            <img src="assets/schematics/three-base-lines.jpg" alt="سه خط پایه اسلیمی" loading="lazy">
+            <p>سه خط پایه اسلیمی</p>
+          </div>
+          <div class="schematic-item">
+            <img src="assets/schematics/golden-points.jpg" alt="نقاط طلایی کادر" loading="lazy">
+            <p>نقاط طلایی کادر + Super Gold Point</p>
+          </div>
+          <div class="schematic-item">
+            <img src="assets/schematics/classical-composition.jpg" alt="ترکیب‌بندی کلاسیک ایرانی" loading="lazy">
+            <p>ترکیب‌بندی کلاسیک (ترنج + لچک + گوشه + حاشیه)</p>
+          </div>
+        </div>
+
+        <p style="margin-top: 1.5rem; font-size: 0.9rem; color: #666;">پس از آپلود فایل‌های تصویری با نام‌های بالا در پوشه <code>assets/schematics/</code>، تصاویر به‌طور خودکار نمایش داده می‌شوند.</p>
       </div>
     </div>
   </main>
