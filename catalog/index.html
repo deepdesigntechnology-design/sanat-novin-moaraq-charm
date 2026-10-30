@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>کاتالوگ تعاملی آثار اصیل · صنعت نوین معرق چرم</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=El+Messiri:wght@400;500;600&family=Noto+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0a;
+    --gold: #c9a227;
+    --gold-light: #e8d5a3;
+    --cream: #f5e6c8;
+    --muted: #a89070;
+    --card: #141414;
+    --border: #2a2418;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--cream);
+    font-family: 'Noto Sans Arabic', sans-serif;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  #cover {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: radial-gradient(ellipse at center, #1a1510 0%, #0a0a0a 70%);
+    z-index: 100;
+    transition: opacity 0.7s ease, visibility 0.7s;
+  }
+  #cover.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+  .cover-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    font-weight: 700;
+    color: var(--gold);
+    text-align: center;
+    letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+  }
+  .cover-sub {
+    font-family: 'El Messiri', sans-serif;
+    font-size: clamp(1rem, 3vw, 1.35rem);
+    color: var(--cream);
+    margin-bottom: 2rem;
+  }
+  .cover-line {
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1.2rem auto;
+  }
+  .cover-btn {
+    margin-top: 2.5rem;
+    padding: 0.9rem 2.4rem;
+    background: transparent;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+    letter-spacing: 0.5px;
+  }
+  .cover-btn:hover {
+    background: var(--gold);
+    color: #0a0a0a;
+    box-shadow: 0 0 24px rgba(201,162,39,0.35);
+  }
+  .cover-hint {
+    position: absolute; bottom: 2rem;
+    font-size: 0.8rem; color: var(--muted);
+  }
+  #app {
+    display: none;
+    height: 100%;
+    flex-direction: column;
+  }
+  #app.active { display: flex; }
+  header {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1.2rem;
+    background: rgba(10,10,10,0.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+    z-index: 20;
+  }
+  .logo {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--gold);
+  }
+  .counter {
+    font-family: 'El Messiri', sans-serif;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+  .counter span { color: var(--gold-light); }
+  main {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 0.8rem;
+  }
+  .slide {
+    position: absolute;
+    inset: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+  .img-wrap {
+    position: relative;
+    max-width: min(92vw, 720px);
+    max-height: 58vh;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(201,162,39,0.15);
+  }
+  .img-wrap img {
+    display: block;
+    max-width: 100%;
+    max-height: 58vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    background: #111;
+  }
+  .info {
+    margin-top: 1.1rem;
+    max-width: min(92vw, 680px);
+    text-align: center;
+    padding: 0 0.5rem;
+  }
+  .info h2 {
+    font-family: 'Cairo', sans-serif;
+    font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+    font-weight: 600;
+    color: var(--gold-light);
+    margin-bottom: 0.45rem;
+  }
+  .info p {
+    font-size: clamp(0.82rem, 2vw, 0.95rem);
+    line-height: 1.7;
+    color: var(--cream);
+    opacity: 0.92;
+  }
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: rgba(20,20,20,0.75);
+    border: 1px solid var(--border);
+    color: var(--gold);
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.25s;
+    z-index: 15;
+    backdrop-filter: blur(4px);
+  }
+  .nav-btn:hover {
+    background: var(--gold);
+    color: #0a0a0a;
+    border-color: var(--gold);
+  }
+  .nav-prev { right: 0.6rem; }
+  .nav-next { left: 0.6rem; }
+  .thumbs {
+    flex-shrink: 0;
+    display: flex;
+    gap: 0.45rem;
+    padding: 0.65rem 1rem;
+    overflow-x: auto;
+    background: rgba(10,10,10,0.95);
+    border-top: 1px solid var(--border);
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
+  }
+  .thumbs::-webkit-scrollbar { height: 4px; }
+  .thumbs::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+  .thumb {
+    flex-shrink: 0;
+    width: 58px; height: 58px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    opacity: 0.55;
+    transition: all 0.25s;
+  }
+  .thumb.active, .thumb:hover {
+    opacity: 1;
+    border-color: var(--gold);
+    box-shadow: 0 0 10px rgba(201,162,39,0.3);
+  }
+  .thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .keys {
+    position: absolute;
+    bottom: 5.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.72rem;
+    color: var(--muted);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .nav-btn { width: 38px; height: 38px; font-size: 1.15rem; }
+    .img-wrap { max-height: 48vh; }
+    .thumb { width: 48px; height: 48px; }
+    .keys { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="cover">
+  <div class="cover-title">کاتالوگ آثار اصیل</div>
+  <div class="cover-sub">صنعت نوین معرق چرم</div>
+  <div class="cover-line"></div>
+  <p style="color:var(--muted);font-size:0.9rem;margin-top:0.5rem">مجموعه‌ای از آثار واقعی تولیدشده در کارگاه · با واژگان فنی دقیق</p>
+  <button class="cover-btn" id="enterBtn">ورود به کاتالوگ</button>
+  <div class="cover-hint">← → برای جابه‌جایی · کلیک روی تصویر برای بزرگ‌نمایی</div>
+</div>
+<div id="app">
+  <header>
+    <div class="logo">معرق چرم · آثار اصیل</div>
+    <div class="counter"><span id="cur">۱</span> / <span id="total">۳</span></div>
+  </header>
+  <main id="stage">
+    <button class="nav-btn nav-prev" id="prevBtn" title="قبلی">›</button>
+    <button class="nav-btn nav-next" id="nextBtn" title="بعدی">‹</button>
+    <div class="keys">کلیدهای ← → یا سوایپ</div>
+  </main>
+  <div class="thumbs" id="thumbs"></div>
+</div>
+<script>
+const works = [
+  {
+    file: "https://drive.google.com/uc?export=view&id=1Bo6lqh5hmi34ySlntKhxUGXqytFIBEk0",
+    title: "جعبه با موتیف آ۱ و پیچ نامنظم ویرگولی",
+    desc: "مرکز درب: موتیف مستقل آ۱. اطراف آن تا لبه‌ها با تکنیک پیچ نامنظم (ویرگولی در هم) از تریشهٔ یک‌میلیمتری چرم کفی شتری پوشیده شده. نوارکشی پهن برای بستن کادرها، و پیچ منظم در لبهٔ نهایی. دیواره‌ها با موتیف لاله طرحدار و همان پیچ نامنظم. پایه چوبی مخفی."
+  },
+  {
+    file: "https://drive.google.com/uc?export=view&id=1Bo6lqh5hmi34ySlntKhxUGXqytFIBEk0",
+    title: "جعبه با موتیف گوشه و پیچ نامنظم",
+    desc: "مرکز درب موتیف مستقل. در چهار گوشهٔ درب، موتیف گوشه (مثلث‌گونه و بسیار پرکاربرد) از نوارکشی پهن به سمت داخل و درون پیچ نامنظم ویرگولی پیشروی کرده است. تمام سطوح از چرم کفی شتری. الگوی کامل ترکیب موتیف گوشه + پیچ نامنظم."
+  },
+  {
+    file: "https://drive.google.com/uc?export=view&id=1Bo6lqh5hmi34ySlntKhxUGXqytFIBEk0",
+    title: "جعبه بسم‌الله با موتیف دوسرتاج",
+    desc: "ترنج مرکزی با خطاطی «بسم الله الرحمن الرحیم». لبه‌های درب و دیواره‌های بدنه با ردیف موتیف دوسرتاج کار شده و فاصلهٔ بین آن‌ها با تریشهٔ یک‌میلیمتری به شکل ویرگول (پیچ نامنظم) پوشش داده شده است. تمام موتیف‌ها و تریشه‌ها از چرم کفی شتری."
+  }
+];
+let current = 0;
+const stage = document.getElementById('stage');
+const thumbsEl = document.getElementById('thumbs');
+const curEl = document.getElementById('cur');
+const totalEl = document.getElementById('total');
+totalEl.textContent = toPersian(works.length);
+function toPersian(n) {
+  return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+}
+function build() {
+  works.forEach((w, i) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide' + (i === 0 ? ' active' : '');
+    slide.dataset.idx = i;
+    slide.innerHTML = `
+      <div class="img-wrap">
+        <img src="${w.file}" alt="${w.title}" loading="${i < 3 ? 'eager' : 'lazy'}">
+      </div>
+      <div class="info">
+        <h2>${w.title}</h2>
+        <p>${w.desc}</p>
+      </div>
+    `;
+    stage.appendChild(slide);
+    const th = document.createElement('div');
+    th.className = 'thumb' + (i === 0 ? ' active' : '');
+    th.innerHTML = `<img src="${w.file}" alt="">`;
+    th.addEventListener('click', () => goTo(i));
+    thumbsEl.appendChild(th);
+  });
+}
+function goTo(idx) {
+  if (idx < 0 || idx >= works.length) return;
+  document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.slide[data-idx="${idx}"]`).classList.add('active');
+  document.querySelectorAll('.thumb')[idx].classList.add('active');
+  current = idx;
+  curEl.textContent = toPersian(idx + 1);
+  document.querySelectorAll('.thumb')[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+}
+document.getElementById('enterBtn').addEventListener('click', () => {
+  document.getElementById('cover').classList.add('hidden');
+  document.getElementById('app').classList.add('active');
+});
+document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    if (e.key === 'ArrowRight') goTo(current - 1);
+    else goTo(current + 1);
+  }
+});
+let touchStartX = 0;
+stage.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+stage.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].screenX - touchStartX;
+  if (Math.abs(dx) > 50) {
+    if (dx > 0) goTo(current - 1);
+    else goTo(current + 1);
+  }
+}, { passive: true });
+build();
+</script>
+</body>
+</html>
